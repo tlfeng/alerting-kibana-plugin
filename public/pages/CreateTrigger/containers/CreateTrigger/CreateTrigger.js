@@ -122,6 +122,7 @@ export default class CreateTrigger extends Component {
     const { httpClient, monitor, notifications } = this.props;
     const formikValues = monitorToFormik(monitor);
     const monitorToExecute = _.cloneDeep(monitor);
+    const searchRequest = buildSearchRequest(formikValues);
     _.set(monitorToExecute, 'triggers', triggers);
     if (formikValues.searchType !== SEARCH_TYPE.AD) {
       const searchRequest = buildSearchRequest(formikValues);

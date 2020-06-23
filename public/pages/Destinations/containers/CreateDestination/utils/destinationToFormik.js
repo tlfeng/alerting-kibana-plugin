@@ -24,7 +24,7 @@ const getAttributeArrayFromValues = (attributes) =>
     value: attributes[currentKey],
   }));
 
-const customWebhookToFormik = ({
+export const customWebhookToFormik = ({
   query_params: queryParams = {},
   header_params: headerParams = {},
   port,

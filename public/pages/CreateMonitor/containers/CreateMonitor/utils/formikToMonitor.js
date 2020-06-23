@@ -85,7 +85,7 @@ export function formikToCustomUrl(values) {
     host: values.http.host,
     port: values.http.port,
     path: values.http.path,
-    params: updatedQueryParams,
+    query_params: updatedQueryParams,
     connection_timeout,
     socket_timeout,
   };

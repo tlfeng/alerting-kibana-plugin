@@ -15,20 +15,22 @@
 
 import _ from 'lodash';
 import { FORMIK_INITIAL_VALUES } from './constants';
+import { SEARCH_TYPE } from '../../../../../utils/constants';
+import { formikToHttp, formikToSearch } from './formikToMonitor';
+import { customWebhookToFormik } from '../../../../Destinations/containers/CreateDestination/utils/destinationToFormik';
+import { DESTINATION_TYPE } from '../../../../Destinations/utils/constants';
 
 // Convert Monitor JSON to Formik values used in UI forms
 export default function monitorToFormik(monitor) {
+  console.log('#monitor: ', monitor);
   const formikValues = _.cloneDeep(FORMIK_INITIAL_VALUES);
+  console.log('#formikValues :', formikValues);
   if (!monitor) return formikValues;
   const {
     name,
     enabled,
     schedule: { cron: { expression: cronExpression = formikValues.cronExpression, timezone } = {} },
-    inputs: [
-      {
-        search: { indices, query },
-      },
-    ],
+    inputs: [{ search: { indices = {}, query = {} } = {}, http = {} }],
     ui_metadata: { schedule = {}, search = {} } = {},
   } = monitor;
 
@@ -53,7 +55,8 @@ export default function monitorToFormik(monitor) {
     searchType,
     fieldName: fieldName ? [{ label: fieldName }] : [],
     timezone: timezone ? [{ label: timezone }] : [],
-    index: indices.map(index => ({ label: index })),
+    index: indices == {} ? indices.map((index) => ({ label: index })) : {},
     query: JSON.stringify(query, null, 4),
+    http: http,
   };
 }

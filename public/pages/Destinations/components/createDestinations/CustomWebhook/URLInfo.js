@@ -81,10 +81,11 @@ const URLInfo = ({ type, values }) => {
         name={`${type}.url`}
         formRow
         fieldProps={{
-          validate: (fieldValue) => validateUrl(fieldValue, values),
+          validate: (fieldValue) => validateUrl(fieldValue, values, type),
         }}
         rowProps={{
-          label: 'Webhook URL',
+          // type is "http" when the component is used to define a monitor
+          label: type === 'http' ? 'URL' : 'Webhook URL',
           style: { paddingLeft: '10px' },
           isInvalid,
           error: hasError,
@@ -134,7 +135,7 @@ const URLInfo = ({ type, values }) => {
         name={`${type}.host`}
         formRow
         fieldProps={{
-          validate: (fieldValue) => validateHost(fieldValue, values),
+          validate: (fieldValue) => validateHost(fieldValue, values, type),
         }}
         rowProps={{
           label: 'Host',

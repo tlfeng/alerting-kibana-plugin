@@ -47,12 +47,12 @@ export const validateUrl = (value, allValues) => {
   if (!isValidUrl) return 'Invalid URL';
 };
 
-export const validateHost = (value, allValues, type) => {
-  const type = allValues.type;
+export const validateHost = (value, allValues) => {
+  // type is "http" when the component 'URLInfo' is used to define a monitor
+  const type = allValues.type ? allValues.type : 'http';
   if (allValues[type].urlType !== URL_TYPE.ATTRIBUTE_URL) return;
   if (!value) return 'Required';
   const host = `^${fqdn}|${ipv4}|${ipv6}$`
-  // type is "http" when the component is used to define a monitor
   const regexHost = type === 'http' ? `${host}|${localhost}` : host;
   const isValidUrl = new RegExp(regexHost).test(value);
   if (!isValidUrl) return 'Invalid Host';

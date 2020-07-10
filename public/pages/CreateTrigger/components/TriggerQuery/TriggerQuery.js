@@ -50,6 +50,7 @@ const TriggerQuery = ({
   onRun,
   response,
   triggerValues,
+  searchType,
   setFlyout,
   isDarkMode,
 }) => {
@@ -59,7 +60,10 @@ const TriggerQuery = ({
     <div style={{ padding: '0px 10px', marginTop: '0px' }}>
       <EuiFlexGroup direction="column">
         <EuiFlexItem>
-          <EuiFormRow label="Extraction query response" fullWidth>
+          <EuiFormRow
+            label={searchType === 'http' ? 'HTTP response' : 'Extraction query response'}
+            fullWidth
+          >
             <EuiCodeEditor
               mode="json"
               theme={isDarkMode ? 'sense-dark' : 'github'}

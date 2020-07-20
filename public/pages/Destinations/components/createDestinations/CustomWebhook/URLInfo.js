@@ -77,6 +77,25 @@ const URLInfo = ({ type, values }) => {
           },
         }}
       />
+      <FormikFieldRadio
+        name={`${type}.urlType`}
+        formRow
+        value="customUrl"
+        inputProps={{
+          id: 'customUrl',
+          value: URL_TYPE.ATTRIBUTE_URL,
+          checked: !isUrlEnabled,
+          label: 'Define endpoint by custom attributes URL',
+          onChange: (e, field, form) => {
+            // Clear Full URL if user switched to custom URL
+            if (field.value === URL_TYPE.FULL_URL) {
+              form.setFieldTouched(`${type}.url`, false, false);
+              form.setFieldValue(`${type}.url`, '');
+            }
+            field.onChange(e);
+          },
+        }}
+      />
       <FormikFieldText
         name={`${type}.url`}
         formRow
@@ -100,31 +119,12 @@ const URLInfo = ({ type, values }) => {
           },
         }}
       />
-      <FormikFieldRadio
-        name={`${type}.urlType`}
-        formRow
-        value="customUrl"
-        inputProps={{
-          id: 'customUrl',
-          value: URL_TYPE.ATTRIBUTE_URL,
-          checked: !isUrlEnabled,
-          label: 'Define endpoint by custom attributes URL',
-          onChange: (e, field, form) => {
-            // Clear Full URL if user switched to custom URL
-            if (field.value === URL_TYPE.FULL_URL) {
-              form.setFieldTouched(`${type}.url`, false, false);
-              form.setFieldValue(`${type}.url`, '');
-            }
-            field.onChange(e);
-          },
-        }}
-      />
       <FormikSelect
         name={`${type}.scheme`}
         formRow
         rowProps={{
           label: 'Type',
-          style: { paddingLeft: '10px' },
+          style: { paddingLeft: '10px', display: isUrlEnabled ? 'none' : 'block' },
         }}
         inputProps={{
           disabled: isUrlEnabled,
@@ -139,7 +139,7 @@ const URLInfo = ({ type, values }) => {
         }}
         rowProps={{
           label: 'Host',
-          style: { paddingLeft: '10px' },
+          style: { paddingLeft: '10px', display: isUrlEnabled ? 'none' : 'block' },
           isInvalid,
           error: hasError,
         }}
@@ -158,7 +158,7 @@ const URLInfo = ({ type, values }) => {
         formRow
         rowProps={{
           label: 'Port',
-          style: { paddingLeft: '10px' },
+          style: { paddingLeft: '10px', display: isUrlEnabled ? 'none' : 'block' },
           isInvalid,
           error: hasError,
         }}
@@ -172,7 +172,7 @@ const URLInfo = ({ type, values }) => {
         formRow
         rowProps={{
           label: 'Path',
-          style: { paddingLeft: '10px' },
+          style: { paddingLeft: '10px', display: isUrlEnabled ? 'none' : 'block' },
           isInvalid,
           error: hasError,
         }}

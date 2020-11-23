@@ -13,13 +13,14 @@
  *   permissions and limitations under the License.
  */
 
-import expect from 'expect';
+import expect from '@kbn/expect';
 
-export default function({ getService, getPageObjects }) {
+export default function ({ getService, getPageObjects }) {
   // most test files will start off by loading some services
   const find = getService('find');
   const testSubjects = getService('testSubjects');
   const esArchiver = getService('esArchiver');
+  const appsMenu = getService('appsMenu');
 
   const PageObjects = getPageObjects(['alertingCommon']);
 
@@ -29,8 +30,10 @@ export default function({ getService, getPageObjects }) {
     });
 
     it('should show alerting dashboard on navigation', async () => {
-      const allTexts = await testSubjects.getVisibleTextAll('appLink');
-      expect(allTexts.includes('A\nAlerting')).toBe(true);
+      //const allTexts = await testSubjects.getVisibleTextAll('appLink');
+      //expect(allTexts.includes('A\nAlerting')).toBe(true);
+      const navLinks = await appsMenu.readLinks();
+      expect(navLinks.map((link) => link.text).includes('Alerting')).toBe(true);
     });
 
     it('should navigate to Monitoring Page', async () => {

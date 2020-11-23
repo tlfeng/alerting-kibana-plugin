@@ -14,7 +14,7 @@
  */
 
 import { resolve } from 'path';
-import { resolveKibanaPath } from '@elastic/plugin-helpers';
+import { REPO_ROOT } from '@kbn/utils';
 import { AlertingPageProvider } from './pageObjects';
 
 // the default export of config files must be a config provider
@@ -22,7 +22,7 @@ import { AlertingPageProvider } from './pageObjects';
 export default async function ({ readConfigFile }) {
   // read the Kibana config file so that we can utilize some of
   // its services and PageObjects
-  const kibanaConfig = await readConfigFile(resolveKibanaPath('test/functional/config.js'));
+  const kibanaConfig = await readConfigFile(resolve(REPO_ROOT, 'test/functional/config.js'));
   return {
     // list paths to the files that contain your plugins tests
     testFiles: [resolve(__dirname, './tests/index.js')],
@@ -48,7 +48,7 @@ export default async function ({ readConfigFile }) {
     apps: {
       ...kibanaConfig.get('apps'),
       alerting: {
-        pathname: '/app/alerting',
+        pathname: '/app/opendistro-alerting',
       },
     },
 

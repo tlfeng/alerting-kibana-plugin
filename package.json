@@ -18,7 +18,9 @@
     "start": "plugin-helpers start",
     "test:jest": "../../node_modules/.bin/jest --config ./test/jest.config.js",
     "build": "yarn plugin-helpers build",
-    "plugin-helpers": "node ../../scripts/plugin_helpers"
+    "plugin-helpers": "node ../../scripts/plugin_helpers",
+    "functional_tests_server": "node ../../scripts/functional_tests_server",
+    "functional_test_runner": "node ../../scripts/functional_test_runner"
   },
   "husky": {
     "hooks": {
